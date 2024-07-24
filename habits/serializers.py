@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from habits.models import Habits
-from habits.validators import FrequencyValidator, CrossValidator, IsGoodValidator, TimeValidator
+from habits.validators import FrequencyValidator, CrossValidator, IsGoodValidator, TimeValidator, IsGoodRewardValidator
 
 
 class HabitsSerializer(serializers.ModelSerializer):
@@ -13,5 +13,6 @@ class HabitsSerializer(serializers.ModelSerializer):
             FrequencyValidator('periodicity'),
             CrossValidator('is_good', "reward", 'bond_habit'),
             IsGoodValidator('bond_habit', 'is_good'),
-            TimeValidator('duration')
+            TimeValidator('duration'),
+            IsGoodRewardValidator('is_good', 'reward')
         ]
