@@ -46,3 +46,13 @@ class TimeValidator:
     def __call__(self, habit):
         if habit.get('duration') > 120:
             raise ValidationError('Время выполнения не может быть больше 120 секунд')
+
+
+class IsGoodRewardValidator:
+    def __init__(self, field_1, field_2):
+        self.field_1 = field_1
+        self.field_2 = field_2
+
+    def __call__(self, habit):
+        if habit.get('reward') and habit.get('bond_habit'):
+            raise ValidationError('Не может быть одновременно приятной привычки и вознаграждения')
