@@ -12,11 +12,6 @@ class Habits(models.Model):
         (False, 'Нет'),
     )
 
-    PERIODICITY_CHOICES = (
-        (True, 'Ежедневная'),
-        (False, 'Еженедельная')
-    )
-
     PUBLIC_CHOICES = (
         (True, 'Публичная'),
         (False, 'Нет'),
@@ -28,9 +23,9 @@ class Habits(models.Model):
     action = models.CharField(max_length=100, verbose_name='Действие')
     is_good = models.BooleanField(default=True, verbose_name='Приятная привычка', choices=GOOD_CHOICES)
     bond_habit = models.ForeignKey('self', on_delete=models.SET_NULL, verbose_name='Связана', **NULLABLE)
-    periodicity = models.BooleanField(default=True, verbose_name='Ежедневная', choices=PERIODICITY_CHOICES)
+    periodicity = models.PositiveIntegerField(default=1, verbose_name='Раз в неделю')
     reward = models.CharField(max_length=100, verbose_name='Вознаграждение', **NULLABLE)
-    duration = models.SmallIntegerField(verbose_name='Время выполнения в минутах')
+    duration = models.PositiveIntegerField(verbose_name='Время выполнения в секундах')
     public = models.BooleanField(default=True, verbose_name='Публичная', choices=PUBLIC_CHOICES)
 
     def __str__(self):
